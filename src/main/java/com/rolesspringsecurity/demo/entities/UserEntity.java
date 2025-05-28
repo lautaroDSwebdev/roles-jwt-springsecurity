@@ -23,7 +23,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    @Email
+
     @NotBlank
     @Size(max = 30)
     private String username;
@@ -32,12 +32,14 @@ public class UserEntity {
     @NotBlank
     @Size(max = 50)
     private String email;
+
+    @NotBlank
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RolesEntity.class, cascade = CascadeType.PERSIST)
     @JoinTable(name = "table_user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RolesEntity> rolesUser;
+    private Set<RolesEntity> roles;
 
 }
