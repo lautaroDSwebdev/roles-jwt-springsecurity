@@ -9,6 +9,7 @@ import com.rolesspringsecurity.demo.repositories.UserRepo;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -16,6 +17,10 @@ import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
+
+//    esto nos va a encriptar la contraseña
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepo user_repo;
@@ -25,13 +30,13 @@ public class UserController {
         return "Hola con seguridad";
     }
 
-    @GetMapping("/sin-seguro")
+    @GetMapping("/sinseguro")
     public String Hola2() {
         return "Hola sin seguridad";
     }
 
     @PostMapping("/crearUsuario")
-    public ResponseEntity<?> crearUsuario(@Valid @RequestBody CreateUserDTO createUserDto){
+    public ResponseEntity<?> crearUsuario(@Valid @RequestBody CreateUserDTO createUserDto) {
 
         Set<RolesEntity> roles = createUserDto.getRoles().stream()
                 .map(role -> RolesEntity.builder().name(Erole.valueOf(role))
@@ -40,7 +45,8 @@ public class UserController {
 
         UserEntity entity_user = UserEntity.builder()
                 .username(createUserDto.getUsername())
-                .password(createUserDto.getPassword())
+//y de esta manera hacemos que lo tome la contraseña de usuario
+                .password(passwordEncoder.encode(createUserDto.getPassword()))
                 .email(createUserDto.getEmail())
                 .roles(roles)
                 .build();
@@ -49,10 +55,9 @@ public class UserController {
     }
 
 
-
     @DeleteMapping
-    public String deleteUser(@RequestParam String id){
+    public String deleteUser(@RequestParam String id) {
         user_repo.deleteById(Long.parseLong(id));
-        return "Usuario borrado" .concat(id);
+        return "Usuario borrado".concat(id);
     }
 }
