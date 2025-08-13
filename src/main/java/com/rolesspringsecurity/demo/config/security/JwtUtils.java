@@ -44,7 +44,7 @@ public class JwtUtils {
     }
 
     //    Validar el token de acceso
-    public boolean TokenValidate(String token) {
+    public boolean isTokenValid(String token) {
         try {
 //        El parseBouilder es para leer la clave token generada
             Jwts.parserBuilder()
