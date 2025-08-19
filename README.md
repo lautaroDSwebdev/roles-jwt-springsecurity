@@ -1,24 +1,3 @@
 Tree of the course spring secority
 
-.
-├── config/
-│   ├── filter/
-│   │   ├── JwtAuthenticationFilter
-│   │   └── JwtAuthorizationFilter
-│   ├── security/
-│   │   └── JwtUtils   
-│   └── SecurityConfig
-├── controller/
-│   ├── TestRoleController
-│   └── UserController
-├── dto/
-│   └── CreateUserDTO
-├── entities/
-│   ├── Erole
-│   ├── RolesEntity
-│   └── UserEntity
-├── repositories/
-│   ├── RolesRepo
-│   └── UserRepo
-└── service/
-    └── UserDetailsServiceImp
+<img width="328" height="428" alt="image" src="https://github.com/user-attachments/assets/5605723a-116d-4f05-983b-00c6128d21bd" />
